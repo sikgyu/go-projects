@@ -41,6 +41,11 @@ func detailsHandler(w http.ResponseWriter, r *http.Request) {
 	// print hostname and IP address if there's no error
 	IP, _ := details.GetIP()
 	fmt.Println(hostname, IP)
+	response := map[string]string{
+		"hostname": hostname,
+		"ip":       IP.String(),
+	}
+	json.NewEncoder(w).Encode(response)
 }
 
 func main() {
@@ -51,7 +56,7 @@ func main() {
 	r.HandleFunc("/health", healthHandler)
 	r.HandleFunc("/", rootHandler)
 	r.HandleFunc("/details", detailsHandler)
-
+	log.Println("Server has started 🎉🎉🎉")
 	log.Fatal(http.ListenAndServe(":80", r))
 }
 

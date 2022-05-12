@@ -38,8 +38,9 @@ func detailsHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	// print hostname if there's no error
-	fmt.Println(hostname)
+	// print hostname and IP address if there's no error
+	IP, _ := details.GetIP()
+	fmt.Println(hostname, IP)
 }
 
 func main() {
